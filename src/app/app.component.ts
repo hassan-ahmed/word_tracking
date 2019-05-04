@@ -4,8 +4,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { MatIconRegistry } from "@angular/material";
 import { DomSanitizer } from "@angular/platform-browser";
 
-
-import { AuthService } from './auth/auth.service';
 import * as schema from './schema/equipment.json';
 
 @Component({
@@ -15,11 +13,7 @@ import * as schema from './schema/equipment.json';
 })
 export class AppComponent implements OnInit {
 
-  private userSubscription: Subscription;
-  public user: any;
-
   constructor(
-    private authService: AuthService,
     private router: Router,
     private domSanitizer: DomSanitizer,
     private matIconRegistry: MatIconRegistry
@@ -27,33 +21,7 @@ export class AppComponent implements OnInit {
     this.registerSvgIcons()
   }
 
-  public ngOnInit() {
-
-    // init this.user on startup
-    this.authService.me().subscribe(data => {
-      this.user = data.user;
-    });
-
-    // update this.user after login/register/logout
-    this.userSubscription = this.authService.$userSource.subscribe((user) => {
-      this.user = user;
-    });
-  }
-
-  logout(): void {
-    this.authService.signOut();
-    this.navigate('');
-  }
-
-  navigate(link): void {
-    this.router.navigate([link]);
-  }
-
-  ngOnDestroy() { 
-    if (this.userSubscription) {
-      this.userSubscription.unsubscribe();
-    }
-  }
+  public ngOnInit() {}
 
   registerSvgIcons() {
     [
