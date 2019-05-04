@@ -1,3 +1,9 @@
-<p>
-  home works!
-</p>
+<div>
+	<input placeholder="Type your text here" [(ngModel)]="newString" name="string">
+	<button (click)="submit()">Submit</button>
+	<ul>
+		<li *ngFor="let str of strings">
+			{{str.text}} - {{str.count}}
+		</li>
+	</ul>
+</div>
